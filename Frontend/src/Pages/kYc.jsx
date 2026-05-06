@@ -15,44 +15,44 @@ function Kyc() {
     console.log(panCard)
 
     // Fetch data when component mounts OR when pan changes
-    useEffect(() => {
+    // useEffect(() => {
 
-        const fetchGetData = async () => {
-            setLoading(true);
-            try {
-                const response = await fetch('http://localhost:5000/api/getdata', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ pan: panCard })
-                });
+    //     const fetchGetData = async () => {
+    //         setLoading(true);
+    //         try {
+    //             const response = await fetch('http://localhost:5000/api/getdata', {
+    //                 method: 'POST',
+    //                 headers: { 'Content-Type': 'application/json' },
+    //                 body: JSON.stringify({ pan: panCard })
+    //             });
 
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    //             if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
-                const data = await response.json();
-                console.log("✅ Data fetched:", data);
-                setResult(data);
-                if (data.full_name) {
-                    setFullName(data.full_name);
-                }
-                if (data.mobile_no) {
-                    setMobile(data.mobile_no);
-                }
-                if (data.pan) {
-                    setPan(data.pan);
-                } else if (data.pan_no) {
-                    setPan(data.pan_no);
-                } else {
-                    setPan(panCard);
-                }
-            } catch (error) {
-                console.error("❌ Fetch error:", error.message);
-                setResult({ error: error.message });
-            }
-            setLoading(false);
-        };
+    //             const data = await response.json();
+    //             console.log("✅ Data fetched:", data);
+    //             setResult(data);
+    //             if (data.full_name) {
+    //                 setFullName(data.full_name);
+    //             }
+    //             if (data.mobile_no) {
+    //                 setMobile(data.mobile_no);
+    //             }
+    //             if (data.pan) {
+    //                 setPan(data.pan);
+    //             } else if (data.pan_no) {
+    //                 setPan(data.pan_no);
+    //             } else {
+    //                 setPan(panCard);
+    //             }
+    //         } catch (error) {
+    //             console.error("❌ Fetch error:", error.message);
+    //             setResult({ error: error.message });
+    //         }
+    //         setLoading(false);
+    //     };
 
-        fetchGetData();
-    }, [panCard]); // Re-run when pan or panCard changes
+    //     fetchGetData();
+    // }, [panCard]); // Re-run when pan or panCard changes
 
     const handleSubmit = async (e) => {
         e.preventDefault();
