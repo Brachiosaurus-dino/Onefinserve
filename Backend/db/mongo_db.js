@@ -1,24 +1,27 @@
 import mongoose from "mongoose";
 
 let conn1;
-let conn2;
 
 const connectDB = async () => {
   try {
-    // First database
-    conn1 = await mongoose.connect("mongodb+srv://manbirss9029_db_user:Akbardon007@cluster0.j6fvxhz.mongodb.net/?appName=Cluster0");
-    console.log(`MongoDB Connected: ${conn1.connection.name}`);
-    
+    // 1. Replace 'YOUR_PASSWORD' with your actual password. 
+    // 2. Replace 'your_database_name' with the actual DB name (e.g., 'test' or 'myApp').
+    // If your password has special characters like @, use: encodeURIComponent('your@pass')
+    const MONGO_URI = "mongodb+srv://manbirss9029_db_user:Akbardon007@cluster0.j6fvxhz.mongodb.net/your_database_name?retryWrites=true&w=majority&appName=Cluster0";
 
-    // Second database
-    // conn2 = mongoose.createConnection("mongodb://localhost:27017/database_register_onefinserv");
-    // conn2.once("open", () => {
-    //   console.log(`MongoDB Connected: ${conn2.name || "second DB"}`);
-    // });
+    if (mongoose.connection.readyState >= 1) return;
 
-    return { conn1};
+    conn1 = await mongoose.connect(MONGO_URI);
+
+    // Using .host or .db.databaseName is more reliable for logging
+    console.log(`✅ MongoDB Connected: ${conn1.connection.host} / ${conn1.connection.db.databaseName}`);
+
+    return { conn1 };
   } catch (error) {
-    console.error("Internal Error 500", error);
+    console.error("❌ MongoDB Connection Error:");
+    console.error(error.message);
+    
+    // Exit process with failure
     process.exit(1);
   }
 };
