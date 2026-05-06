@@ -82,7 +82,7 @@ export const checkKycStatus = async (req, res) => {
 
     // Make the request to NSE using exactly 3 arguments (URL, Payload, Config)
     const response = await axios.post(
-      'https://nseinvestuat.nseindia.com/n/api/v2/utility/KYC_CHECK',
+      'https://nseinvestuat.nseindia.com/nsemfdesk/api/v2/utility/KYC_CHECK',
       payload,
       config
     );
